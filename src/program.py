@@ -1,7 +1,8 @@
 import pygame
+import random
+
 
 def main_program(xValue, yValue, seedValue):
-
     # define box and margin sizes
     BoxSizeP = 20
     BoxSpaceMarginP = 2
@@ -25,6 +26,9 @@ def main_program(xValue, yValue, seedValue):
     # define colours used in drawings
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
+
+    # create seeded playing field
+    PlayingField = create_seeded_playing_field(BoxNoX, BoxNoY, seedValue)
 
     # initialise PyGame
     pygame.init()
@@ -68,5 +72,37 @@ def main_program(xValue, yValue, seedValue):
         pygame.display.flip()
 
 
-def calculate_moves():
-    pass
+def calculate_moves(array):
+
+    return True
+
+
+def create_seeded_playing_field(xValue, yValue, userSeed):
+
+    # create the playing field
+    PlayingField = []
+
+    # seed the random using user seed
+    random.seed(userSeed)
+
+    # initialise the rolling seed
+    rollingSeed = random.randint(1, 100000)
+
+    for y in range(yValue):
+
+        # create new x-axis line to populate
+        PlayingField.append([])
+
+        for x in range(xValue):
+
+            # seed the random
+            random.seed(rollingSeed)
+
+            # add seeded random bool to playing field
+            PlayingField[y].append(bool(random.getrandbits(1)))
+
+            # re-seed the random
+            rollingSeed = random.randint(1, 100000)
+
+    # return the seeded playing field
+    return PlayingField

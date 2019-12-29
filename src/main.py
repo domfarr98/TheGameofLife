@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter.ttk import *
-import src.program
+from src import program
 
 
 def begin_button_press(xValue, yValue, seedValue):
@@ -9,7 +9,7 @@ def begin_button_press(xValue, yValue, seedValue):
     screen.destroy()
 
     # initiate the game window with desired configuration
-    src.program.main_program(xValue, yValue, seedValue)
+    program.main_program(xValue, yValue, seedValue)
 
 
 # only run window code if ran as main
