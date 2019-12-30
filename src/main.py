@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter.ttk import *
-from src import program
+import program
 
 
 def begin_button_press(xValue, yValue, seedValue):

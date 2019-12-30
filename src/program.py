@@ -24,10 +24,6 @@ def main_program(xValue, yValue, seedValue):
     ScreenSize = ((BoxNoX * (BoxSizeP + BoxSpaceMarginP) + BoxSpaceMarginP),
                   (BoxNoY * (BoxSizeP + BoxSpaceMarginP)) + BoxSpaceMarginP)
 
-    # define the drawing points for the boxes
-    DrawingPointX = 0
-    DrawingPointY = 0
-
     # define colours used in drawings
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
@@ -70,14 +66,14 @@ def main_program(xValue, yValue, seedValue):
         DrawingPointY = BoxSpaceMarginP
 
         # redraw the grid
-        for x in range(BoxNoX):
-            for y in range(BoxNoY):
+        for y in range(BoxNoY):
+            for x in range(BoxNoX):
 
                 # draw the grid boxes
                 pygame.draw.rect(screen, WHITE, (DrawingPointX, DrawingPointY, BoxSizeP, BoxSizeP))
 
                 # if dot is required, draw dot
-                if PlayingField[x][y]:
+                if PlayingField[y][x]:
                     if smallScale:
                         pygame.draw.circle(screen, BLACK, (DrawingPointX + 5, DrawingPointY + 5), 3)
                     else:
@@ -96,7 +92,6 @@ def main_program(xValue, yValue, seedValue):
 def calculate_moves(array):
 
     new_array = []
-    score = 0
     iy = 0
 
     # for every element in this array
