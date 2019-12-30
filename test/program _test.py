@@ -34,7 +34,7 @@ class TestProgram(unittest.TestCase):
                        [False, True, True]]
 
         output_array = [[False, True, True],
-                        [False, False, False],
+                        [True, False, False],
                         [False, True, True]]
 
         self.assertEqual(program.calculate_moves(input_array), output_array)

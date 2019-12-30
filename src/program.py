@@ -58,7 +58,7 @@ def main_program(xValue, yValue, seedValue):
             if event.type == pygame.QUIT:
                 quit()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                calculate_moves(PlayingField)
+                PlayingField = calculate_moves(PlayingField)
                 evo += 1
                 pygame.display.set_caption("The Game of Life - Evolution " + str(evo))
 
@@ -95,7 +95,104 @@ def main_program(xValue, yValue, seedValue):
 
 def calculate_moves(array):
 
-    return array
+    new_array = []
+    score = 0
+    iy = 0
+
+    # for every element in this array
+    for y in array:
+        new_array.append([])
+        for x in range(len(y)):
+
+            # reset score
+            score = 0
+
+            # reset checked elements
+            left_border = False
+            right_border = False
+            top_border = False
+            bottom_border = False
+
+            # check to see if elements should not be checked
+            if iy == 0:
+                top_border = True
+            if iy == len(array)-1:
+                bottom_border = True
+            if x == 0:
+                left_border = True
+            if x == len(y)-1:
+                right_border = True
+
+            # if not on the top left
+            if not top_border and not left_border:
+
+                # check top left
+                if array[iy-1][x-1]:
+                    score += 1
+
+            # if not on the top centre
+            if not top_border:
+
+                # check top centre
+                if array[iy-1][x]:
+                    score += 1
+
+            # if not on the top right
+            if not top_border and not right_border:
+
+                # check top right
+                if array[iy-1][x+1]:
+                    score += 1
+
+            # if not on centre left
+            if not left_border:
+
+                # check centre left
+                if array[iy][x-1]:
+                    score += 1
+
+            # if not on centre right
+            if not right_border:
+
+                # check right centre
+                if array[iy][x+1]:
+                    score += 1
+
+            # if not on bottom left
+            if not left_border and not bottom_border:
+
+                # check bottom left
+                if array[iy+1][x-1]:
+                    score += 1
+
+            # if not on bottom centre
+            if not bottom_border:
+
+                # check bottom centre
+                if array[iy+1][x]:
+                    score += 1
+
+            # if not on bottom right
+            if not right_border and not bottom_border:
+
+                # check bottom right
+                if array[iy+1][x+1]:
+                    score += 1
+
+            # if the cell is dead, check if it should come to life
+            if not array[iy][x] and score == 3:
+                new_array[iy].append(True)
+
+            # else if the cell is alive, check if it should die
+            elif array[iy][x] and score < 2 or score > 3:
+                new_array[iy].append(False)
+
+            # else keep the cell alive/dead
+            else:
+                new_array[iy].append(array[iy][x])
+        iy += 1
+
+    return new_array
 
 
 def create_seeded_playing_field(xValue, yValue, userSeed):
