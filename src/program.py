@@ -42,18 +42,25 @@ def main_program(xValue, yValue, seedValue):
     screen = pygame.display.set_mode(ScreenSize)
 
     # set window name
-    pygame.display.set_caption("My Game")
+    pygame.display.set_caption("The Game of Life - Press space to evolve")
 
-    # Used to manage how fast the screen updates
+    # used to manage how fast the screen updates
     clock = pygame.time.Clock()
+
+    # used to count the number of evolutions
+    evo = 0
 
     # main loop
     while True:
 
-        # check if user requests exit
+        # check if user requests exit, or if user requests game advance
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                calculate_moves(PlayingField)
+                evo += 1
+                pygame.display.set_caption("The Game of Life - Evolution " + str(evo))
 
         # set screen background
         screen.fill(BLACK)
@@ -88,7 +95,7 @@ def main_program(xValue, yValue, seedValue):
 
 def calculate_moves(array):
 
-    return True
+    return array
 
 
 def create_seeded_playing_field(xValue, yValue, userSeed):
