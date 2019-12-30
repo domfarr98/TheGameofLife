@@ -3,6 +3,7 @@ import random
 
 
 def main_program(xValue, yValue, seedValue):
+
     # define box and margin sizes
     BoxSizeP = 20
     BoxSpaceMarginP = 2
@@ -11,9 +12,13 @@ def main_program(xValue, yValue, seedValue):
     BoxNoX = round(int(xValue))
     BoxNoY = round(int(yValue))
 
+    # bool to show smaller scaling
+    smallScale = False
+
     # scale for larger sizes
     if BoxNoX > 40 or BoxNoY > 40:
         BoxSizeP = 10
+        smallScale = True
 
     # define the window size depending on number of boxes, box sizes and margin sizes
     ScreenSize = ((BoxNoX * (BoxSizeP + BoxSpaceMarginP) + BoxSpaceMarginP),
@@ -58,9 +63,18 @@ def main_program(xValue, yValue, seedValue):
         DrawingPointY = BoxSpaceMarginP
 
         # redraw the grid
-        for _ in range(BoxNoX):
-            for _ in range(BoxNoY):
+        for x in range(BoxNoX):
+            for y in range(BoxNoY):
+
+                # draw the grid boxes
                 pygame.draw.rect(screen, WHITE, (DrawingPointX, DrawingPointY, BoxSizeP, BoxSizeP))
+
+                # if dot is required, draw dot
+                if PlayingField[x][y]:
+                    if smallScale:
+                        pygame.draw.circle(screen, BLACK, (DrawingPointX + 5, DrawingPointY + 5), 3)
+                    else:
+                        pygame.draw.circle(screen, BLACK, (DrawingPointX+10, DrawingPointY+10), 5)
                 DrawingPointX += BoxSizeP + BoxSpaceMarginP
             DrawingPointY += BoxSizeP + BoxSpaceMarginP
             DrawingPointX = BoxSpaceMarginP
