@@ -5,6 +5,12 @@ import program
 
 def begin_button_press(xValue, yValue, seedValue):
 
+    try:
+        int(xValue)
+        int(yValue)
+    except ValueError:
+        return
+
     # close the entry window
     screen.destroy()
 
